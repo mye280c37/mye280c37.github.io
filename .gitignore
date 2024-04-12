@@ -17,4 +17,7 @@ package-lock.json
 # IDE configurations
 .idea
 
+# macOS
+.DS_Store
+
 # Misc

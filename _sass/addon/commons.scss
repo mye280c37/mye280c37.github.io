@@ -819,9 +819,11 @@ $btn-mb: 0.5rem;
   }
 
   .sidebar-bottom {
-    padding-left: 2rem;
+    padding-left: 1rem;
     padding-right: 1rem;
     margin-bottom: 1.5rem;
+
+    justify-content: center;
 
     $btn-size: 1.75rem;
 
@@ -840,6 +842,17 @@ $btn-mb: 0.5rem;
 
       &:hover {
         background-color: var(--sidebar-hover-bg);
+      }
+    }
+
+    button {
+      @extend %button;
+      @extend %sidebar-links;
+      @extend %sidebar-link-hover;
+      @extend %clickable-transition;
+
+      &:not(:last-child) {
+        margin-right: $sb-btn-gap;
       }
     }
 
