@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: mye280c37 # the main title
 
-tagline: mye # it will display as the sub-title
+tagline: Hyerin Kim # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
@@ -168,7 +168,7 @@ collections:
   tabs:
     output: true
     sort_by: order
-  home:
+  about:
     output: true
 
 defaults:

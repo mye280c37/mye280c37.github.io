@@ -11,3 +11,25 @@
 @import 'layout/archives';
 @import 'layout/categories';
 @import 'layout/category-tag';
+
+.tobbar {
+  .clicked-item, :hover {
+    color: #d2603a !important;
+    border-bottom: 1px solid #d2603a;
+    text-decoration: none;
+  }
+
+  .clicked-item {
+    margin-right: .5rem;
+    font-weight: bold;
+  }
+}
+
+.index-main {
+  li {
+    margin: 0 !important;
+  }
+  .sidebar-bottom a:not(:last-child) {
+    margin-right: .5rem;
+  }
+}

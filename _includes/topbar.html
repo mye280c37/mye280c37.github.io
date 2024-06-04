@@ -5,22 +5,29 @@
     id="topbar"
     class="d-flex align-items-center justify-content-between px-lg-3 h-100"
   >
-    <nav id="breadcrumb" aria-label="Breadcrumb">
-      {% assign paths = page.url | split: '/' %}
-
-      {% if paths.size == 0 or page.layout == 'home' %}
-        <!-- index page -->
-        <span>{{ site.data.locales[include.lang].tabs.home | capitalize }}</span>
-
-      {% else %}
+    {% if paths.size == 0 or page.layout == 'about' %}
+      <nav class="tobbar">
+        <span>
+          <a href="{{ '/' | relative_url }}" class="clicked-item">
+            About
+          </a>
+        </span>
+        <span>
+          <a href="{{ '/home' | relative_url }}">
+            Blog
+          </a>
+        </span>
+      </nav>
+    {% else %}
+      <nav id="breadcrumb" aria-label="Breadcrumb">
+        {% assign paths = page.url | split: '/' %}
         {% for item in paths %}
           {% if forloop.first %}
             <span>
-              <a href="{{ '/' | relative_url }}">
-                {{- site.data.locales[include.lang].tabs.home | capitalize -}}
+              <a href="{{ '/home' | relative_url }}">
+                Blog
               </a>
             </span>
-
           {% elsif forloop.last %}
             {% if page.collection == 'tabs' %}
               <span>{{ site.data.locales[include.lang].tabs[item] | default: page.title }}</span>
@@ -36,10 +43,9 @@
             </span>
           {% endif %}
         {% endfor %}
-      {% endif %}
-    </nav>
-    <!-- endof #breadcrumb -->
-
+      </nav>
+      <!-- endof #breadcrumb -->
+    {% endif %}
     <button type="button" id="sidebar-trigger" class="btn btn-link">
       <i class="fas fa-bars fa-fw"></i>
     </button>
@@ -55,23 +61,25 @@
       {% endif %}
     </div>
 
-    <button type="button" id="search-trigger" class="btn btn-link">
-      <i class="fas fa-search fa-fw"></i>
-    </button>
+    {% unless page.layout == 'about' %}
+      <button type="button" id="search-trigger" class="btn btn-link">
+        <i class="fas fa-search fa-fw"></i>
+      </button>
 
-    <search class="align-items-center ms-3 ms-lg-0">
-      <i class="fas fa-search fa-fw"></i>
-      <input
-        class="form-control"
-        id="search-input"
-        type="search"
-        aria-label="search"
-        autocomplete="off"
-        placeholder="{{ site.data.locales[include.lang].search.hint | capitalize }}..."
-      >
-    </search>
-    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">
-      {{- site.data.locales[include.lang].search.cancel -}}
-    </button>
+      <search class="align-items-center ms-3 ms-lg-0">
+        <i class="fas fa-search fa-fw"></i>
+        <input
+          class="form-control"
+          id="search-input"
+          type="search"
+          aria-label="search"
+          autocomplete="off"
+          placeholder="{{ site.data.locales[include.lang].search.hint | capitalize }}..."
+        >
+      </search>
+      <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">
+        {{- site.data.locales[include.lang].search.cancel -}}
+      </button>
+    {% endunless %}
   </div>
 </header>
