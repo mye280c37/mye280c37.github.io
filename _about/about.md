@@ -40,12 +40,14 @@ Currently, my research interests include below:
 **Improving Spatial Reuse of Wireless LANs using Contextual Bandits**   
 Hyerin Kim, Gwanwoo Na, Heeseon Im, and Jungmin So  
 *In IEEE Transactions on Wireless Communications (Early Access)* &nbsp; Nov. 2023  
-[shortcut](https://ieeexplore.ieee.org/document/10309995) &nbsp; [self review](http://mye280c37.github.io/posts/paper-review-02/)  
+[link](https://ieeexplore.ieee.org/document/10309995) &nbsp; 
+<!-- [self review](https://mye280c37.github.io/posts/paper-review-02/)   -->
 
 **Improving Spatial Reuse of Wireless LAN Uplink Using BSS Color and Proximity Information**  
 Hyerin Kim and Jungmin So  
 *In MDPI Applied Sciences* &nbsp; Nov. 2021  
-[shortcut](https://www.mdpi.com/2076-3417/11/22/11074) &nbsp; [self review](http://mye280c37.github.io/posts/paper-review-01/)  
+[link](https://www.mdpi.com/2076-3417/11/22/11074) &nbsp; 
+<!-- [self review](https://mye280c37.github.io/posts/paper-review-01/)   -->
 
 ## Software Experience
 
