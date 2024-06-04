@@ -168,6 +168,8 @@ collections:
   tabs:
     output: true
     sort_by: order
+  home:
+    output: true
 
 defaults:
   - scope:
