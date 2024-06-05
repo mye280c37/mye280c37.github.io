@@ -21,8 +21,9 @@ Currently, my research interests include below:
 * Wireless Communication, especially Cellular and Wi-Fi
 * Vehicle to Everything (V2X)
 * Resource Management
-* Intelligent Mobility Network System
+* Connected Mobility
 * Reinforcement Learning (RL)
+* Autonomous Driving
 
 ## News
 
