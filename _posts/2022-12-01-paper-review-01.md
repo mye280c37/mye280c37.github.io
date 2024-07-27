@@ -26,7 +26,7 @@ math: true
 ---
 
 <!-- ![img1](../assets/img/posts/2022-12-01-paper-review-01/img1.png) -->
-<img src="../assets/img/posts/2022-12-01-paper-review-01/img1.png" width="80%"/>
+<img src="../assets/img/posts/2022-12-01-paper-review-01/img1.png" alt="img1" width="80%"/>
 
 Let’s assume that STA B wants to transmit a packet to AP2, and there is an ongoing packet from STA A to AP1.
 
