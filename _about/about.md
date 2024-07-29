@@ -35,7 +35,7 @@ As the number of communication-dependent entities increases and the system becom
 
 ## News
 
-**May 27, 2024** &nbsp;&nbsp; Start Google Summer of Code 2024 with ns-3  
+**May 27, 2024** &nbsp;&nbsp; Start Google Summer of Code 2024 with ns-3 &nbsp;⇨&nbsp; [wiki](https://www.nsnam.org/wiki/GSOC2024RLUsability5G)/ [posts](https://mye280c37.github.io/categories/gsoc-2024/)  
 **Oct. 18, 2023** &nbsp;&nbsp; 1 paper has been accepted to IEEE TWC  
 **Sep. 1, 2023** &nbsp;&nbsp; Begin the Master's program at Seoul National University  
 **Aug. 22, 2023** &nbsp;&nbsp; Graduate from undergraduate studies at Sogang University  
@@ -50,13 +50,13 @@ As the number of communication-dependent entities increases and the system becom
 Hyerin Kim, Gwanwoo Na, Heeseon Im, and Jungmin So  
 *In IEEE Transactions on Wireless Communications (Early Access)* &nbsp; Nov. 2023  
 [link](https://ieeexplore.ieee.org/document/10309995) &nbsp; 
-<!-- [self review](https://mye280c37.github.io/posts/paper-review-02/)   -->
+[self review](https://mye280c37.github.io/posts/paper-review-02/)  
 
 **Improving Spatial Reuse of Wireless LAN Uplink Using BSS Color and Proximity Information**  
 Hyerin Kim and Jungmin So  
 *In MDPI Applied Sciences* &nbsp; Nov. 2021  
 [link](https://www.mdpi.com/2076-3417/11/22/11074) &nbsp; 
-<!-- [self review](https://mye280c37.github.io/posts/paper-review-01/)   -->
+[self review](https://mye280c37.github.io/posts/paper-review-01/)  
 
 ## Software Experience
 
