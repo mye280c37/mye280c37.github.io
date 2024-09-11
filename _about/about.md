@@ -19,20 +19,16 @@ I acquired my Bachelor's degree in Computer Science and Engineering from Sogang 
 
 Currently, my research interests include the following:
 
-- Vehicle to Everything (V2X)  
-- Wireless Communication (Cellular, Wi-Fi, 5G and Beyond, 6G)  
-- Resource Management  
-- Connected Mobility  
-- Reinforcement Learning (RL)  
-- Autonomous Driving  
+- 5G/6G Network Architecture, Optimization, and Resource Management
+- AI/ML-driven Solutions for Network Efficiency and Mobility
+- MAC Layer Design and Optimization for Low-Latency (URLLC) Communications
+- Smart City and Smart Mobility Applications using Edge Computing and SDN
+- V2X Communication Systems and their Role in Next-Generation Mobility
+- Integration of AI-based Resource Management in Dense and Dynamic Networks
 
 I am deeply interested in V2X technology, which is fundamental for enabling fully autonomous driving and advanced vehicle infotainment systems. My research focuses on developing **Connected Mobility Systems** supported by **V2X** and includes a detailed study of the **PHY and MAC layers**. This spans from **LTE-V2X** and Korea’s **V2X standards** to **NR-V2X**, where I investigate **resource allocation methods** capable of meeting **QoS requirements** for diverse applications.
 
 As **5G** evolves into **6G**, the increasing number of communication-dependent entities and system complexity will require advanced management techniques. My future research will explore **network slicing**, **task offloading** using **SDN (Software-Defined Networking)**, and **Mobile Edge Computing (MEC)**, integrating these technologies into **6G networks** to support real-time decision-making and low-latency communications. My ultimate goal is to design comprehensive **connected mobility systems** that leverage these innovations to meet the demands of **autonomous driving** and **smart mobility**.
-
-<!-- 완전 자율주행 및 차량 인포테인먼트에 필수적인 V2X에 가장 큰 관심을 갖고 있고, V2X가 만들어갈 Connected Mobility System 구성에도 관심이 많다. 현재 한국의 V2X 표준인 LTE-V2X부터 시작해 NR-V2X까지 PHY, MAC layer의 동작에 대한 전반적인 공부를 마친 상태이고 application이 발생시키는 다양한 크기, 다양한 주기를 가진 패킷들이 QoS를 만족하는 NR-V2X 기반의 resource allocation 방법을 연구하고자 한다. 
-
-통신을 필요로 하는 주체들이 많아지고 복잡해지면서 단순히 PHY, MAC layer에만 중점을 둔 것이 아니라 시스템 구성과 소프트웨어 측면에서 이들을 관리하고 원하는 서비스를 제공하는 것이 매우 중요해졌다고 생각한다. 따라서 SDN이나 MEC를 이용한 network slicing과 task offloading으로 내 scope를 넓히고 connected mobility system 전체를 구성할 수 있는 연구자가 목표이다. -->
 
 ## News
 
