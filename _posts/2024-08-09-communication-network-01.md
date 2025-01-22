@@ -1,7 +1,7 @@
 ---
 title: "Advanced Technologies Supporting V2X"
 author: mye280c37
-categories: [V2X]
+categories: [Communication Network]
 tags: [5G, B5G, V2X, SDN, NFV, Network Slicing, O-RAN, MEC, PD]
 math: true
 ---
@@ -23,7 +23,7 @@ Packet Duplication (PD)
 
 ---
 
-![protocol-stack](../assets/img/posts/2024-08-09-v2x-01/protocol-stack.png)
+![protocol-stack](../assets/img/posts/2024-08-09-communication-network-01/protocol-stack.png)
 
 In Cellular networks, the control plane and data plane are separated. Since resource management and data management for controlling the network system and transmitting data are all handled at the higher layer, we will focus on the higher layer.
 
@@ -94,7 +94,7 @@ Companies like CISCO developed generic hardware and then installed specific soft
 
 ### Architecture
 
-![sdn](../assets/img/posts/2024-08-09-v2x-01/sdn.png){: width="80%"}
+![sdn](../assets/img/posts/2024-08-09-communication-network-01/sdn.png){: width="80%"}
 _[https://www.sdxcentral.com/networking/sdn/definitions/what-the-definition-of-software-defined-networking-sdn/](https://www.sdxcentral.com/networking/sdn/definitions/what-the-definition-of-software-defined-networking-sdn/)_
 
 In SDN (Software-Defined Networking), the **Northbound API** and **Southbound API** are responsible for interactions between the SDN controller and other systems.
@@ -175,7 +175,7 @@ In other words, it implements network functions (NF) as software that runs in a 
 
 ### Architecture
 
-![nfv](../assets/img/posts/2024-08-09-v2x-01/nfv.png){: width="80%"}
+![nfv](../assets/img/posts/2024-08-09-communication-network-01/nfv.png){: width="80%"}
 
 - **VNF (Virtual Network Function)**: The software application that delivers a NF, such as forwarding services and IP configurations.
     - Multiple VNFs can be combined to form a service chain.
@@ -260,7 +260,7 @@ Network Slicing is a technology that divides a single physical network infrastru
 
 ### Architecture
 
-![network-slicing](../assets/img/posts/2024-08-09-v2x-01/network-slicing.png){: width="80%"}
+![network-slicing](../assets/img/posts/2024-08-09-communication-network-01/network-slicing.png){: width="80%"}
 _[https://en.wikipedia.org/wiki/5G_network_slicing](https://en.wikipedia.org/wiki/5G_network_slicing)_
 
 - **Service Layer**:
@@ -330,7 +330,7 @@ In summary, O-RAN aims to significantly enhance the efficiency and flexibility o
 
 ### O-RAN Architecture Overview
 
-![o-ran](../assets/img/posts/2024-08-09-v2x-01/o-ran.png){: width="80%"}
+![o-ran](../assets/img/posts/2024-08-09-communication-network-01/o-ran.png){: width="80%"}
 _[https://mediastorage.o-ran.org/white-papers/O-RAN.WG1.Vertical-Industry-White-Paper-2023-12.pdf](https://mediastorage.o-ran.org/white-papers/O-RAN.WG1.Vertical-Industry-White-Paper-2023-12.pdf)_
 
 Break down hardware-centric RAN, making it more open, interoperable, and standardized interfaces to communicate with, manage, and collect data from each network node, known as the set of **Next Generation Node Bs (gNBs).**
@@ -522,7 +522,7 @@ Functional Split (FS) refers to various methods that can be used to distribute o
 
 ### FS in O-RAN
 
-![fs](../assets/img/posts/2024-08-09-v2x-01/fs.png){: width="85%"}
+![fs](../assets/img/posts/2024-08-09-communication-network-01/fs.png){: width="85%"}
 
 - The degree of centralization can be adjusted to balance resource usage efficiency and latency.
 - In O-RAN (Open Radio Access Network), FS is designed to be more flexible in its application.
@@ -564,14 +564,14 @@ Custom functional splits play a critical role in optimizing network efficiency, 
 
 ---
 
-![mec](../assets/img/posts/2024-08-09-v2x-01/mec.png)
+![mec](../assets/img/posts/2024-08-09-communication-network-01/mec.png)
 _[https://info.teledynamics.com/blog/network-edge-vs-edge-computing](https://info.teledynamics.com/blog/network-edge-vs-edge-computing)_
 
 MEC (Multi-access Edge Computing) is a technology that provides computing, storage, and network functions at the network edge. This technology allows for processing and analyzing data close to the user, significantly reducing latency, increasing data transmission efficiency, and optimizing network traffic.
 
 ### Network Edge
 
-![network-edge](../assets/img/posts/2024-08-09-v2x-01/network-edge.png){: width="80%"}
+![network-edge](../assets/img/posts/2024-08-09-communication-network-01/network-edge.png){: width="80%"}
 _[https://info.teledynamics.com/blog/network-edge-vs-edge-computing](https://info.teledynamics.com/blog/network-edge-vs-edge-computing)_
 
 The network edge refers to the part of the network located between user devices (e.g., smartphones, IoT devices) and the network core (central data centers or cloud servers). Because the network edge is close to where data is generated and consumed, processing data at the edge plays a crucial role in minimizing latency and enhancing network efficiency.
