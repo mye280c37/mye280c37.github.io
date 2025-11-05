@@ -16,7 +16,8 @@
     // margin-bottom: 1.25rem;
 
     &:focus {
-      outline: none; /* avoid outline in Safari */
+      outline: none;
+      /* avoid outline in Safari */
     }
   }
 }
@@ -96,13 +97,13 @@
 }
 
 %img-caption {
-  + em {
+  +em {
     display: block;
     text-align: center;
     font-style: normal;
-    font-size: 80%;
+    font-size: 85%;
     padding: 0;
-    color: #6d6c6c;
+    color: #8d8d8d;
   }
 }
 
