@@ -11,9 +11,12 @@
 @import 'layout/archives';
 @import 'layout/categories';
 @import 'layout/category-tag';
+@import 'layout/news';
 
 .tobbar {
-  .clicked-item, :hover {
+
+  .clicked-item,
+  :hover {
     color: #d2603a !important;
     border-bottom: 1px solid #d2603a;
     text-decoration: none;
@@ -29,6 +32,7 @@
   li {
     margin: 0 !important;
   }
+
   .sidebar-bottom a:not(:last-child) {
     margin-right: .5rem;
   }

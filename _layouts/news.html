@@ -1,0 +1,51 @@
+---
+layout: page
+---
+
+{% include lang.html %}
+
+{% assign df_strftime_m = site.data.locales[lang].df.archives.strftime | default: '/ %m' %}
+{% assign df_dayjs_m = site.data.locales[lang].df.archives.dayjs | default: '/ MM' %}
+
+<div id="news" class="pl-xl-3">
+  {%- comment -%} _about/news.md 찾기 {%- endcomment -%}
+  {%- assign news_doc = site.about | where: "slug", "news" | first -%}
+
+  {%- if news_doc and news_doc.items -%}
+  {%- assign sorted_items = news_doc.items | sort: "date" | reverse -%}
+  {%- assign last_year = "" -%}
+
+  {%- for item in sorted_items -%}
+  {%- assign cur_year = item.date | date: '%Y' -%}
+
+  {%- if cur_year != last_year -%}
+  {%- unless forloop.first -%}</ul>{%- endunless -%}
+  <time class="year lead d-block">{{ cur_year }}</time>
+  <ul class="list-unstyled">
+    {%- assign last_year = cur_year -%}
+    {%- endif -%}
+
+    <li>
+      {% assign ts = item.date | date: '%s' %}
+      <p class="headline">
+        <span class="date">
+          <span class="day" data-ts="{{ ts }}" data-df="DD">{{ item.date | date: '%d' }}</span>
+          <span class="month small text-muted ms-1" data-ts="{{ ts }}" data-df="{{ df_dayjs_m }}">
+            {{ item.date | date: df_strftime_m }}
+          </span>
+        </span>
+        <span class="title force-wrap">
+          {{ item.title }}
+        </span>
+      </p>
+      {%- if item.description -%}
+      <p class="text-muted description force-wrap">{{ item.description }}</p>
+      {%- endif -%}
+    </li>
+    {%- if forloop.last -%}
+  </ul>{%- endif -%}
+  {%- endfor -%}
+  {%- else -%}
+  <p class="text-muted">No news found.</p>
+  {%- endif -%}
+</div>

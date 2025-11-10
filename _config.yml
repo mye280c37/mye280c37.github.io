@@ -169,7 +169,7 @@ collections:
     output: true
     sort_by: order
   about:
-    output: true
+    output: false
 
 defaults:
   - scope:
