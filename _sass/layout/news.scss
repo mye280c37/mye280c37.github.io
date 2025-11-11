@@ -17,7 +17,7 @@
 
   .year {
     height: 4rem;
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     position: relative;
     left: 2px;
     margin-left: -$timeline-width;
@@ -51,7 +51,7 @@
       border-radius: 50%;
       width: 12px;
       height: 12px;
-      left: 23.5px;
+      left: 18.5px;
       border: 3px solid;
       background-color: var(--timeline-year-dot-color);
       border-color: var(--timeline-node-bg);
@@ -65,7 +65,7 @@
 
     li {
       position: relative;
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       line-height: 1.3;
       white-space: nowrap;
       padding-bottom: 1.5rem;
@@ -117,9 +117,7 @@
       top: 0.4em;
       left: auto;
       bottom: auto;
-      /* 날짜 글자 높이에 맞춰 세로 위치 조정 */
-      right: -28.5px;
-      /* 날짜 오른쪽에서 바깥쪽으로 점 배치 */
+      right: -22.5px;
       width: 8px;
       height: 8px;
       border-radius: 50%;
@@ -141,7 +139,7 @@
     padding-bottom: 0.5rem;
     position: relative;
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 1.05rem;
   }
 }
 
