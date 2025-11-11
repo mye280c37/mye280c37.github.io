@@ -1,5 +1,6 @@
 ---
 layout: posts
 icon: fas fa-archive
-order: 4
+order: 3
+visible: true
 ---

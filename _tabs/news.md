@@ -1,5 +1,6 @@
 ---
 layout: news
 icon: fas fa-newspaper
-order: 5
+order: 2
+visible: true
 ---
