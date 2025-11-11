@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: mye280c37 # the main title
 
-tagline: Hyerin Kim # it will display as the sub-title
+tagline: Turning ideas into code, and code into systems # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
@@ -97,7 +97,7 @@ theme_mode: dark # [light | dark]
 # img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: /assets/img/avatar.png
+avatar: /assets/img/kling_20251109-optimize.gif
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
