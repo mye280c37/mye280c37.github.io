@@ -137,6 +137,15 @@ The mapping between an IP flow and its corresponding QoS Flow (QFI) is pre-defin
 | **Session / Flow Management** | SMF (Session Management Function) | QFI | Determines which flow belongs to which QoS Flow (QFI) |
 | **Bearer Mapping / Enforcement** | UPF + RAN (SDAP, scheduler) | QFI → DRB | Executes traffic handling (queueing, transmission) |
 
+### QoS Flow — The Smallest QoS Unit Defined in the 5G Core
+
+A QoS Flow is the finest-grained QoS entity defined by the 5G Core.
+Each flow is associated with a unique QFI (QoS Flow Identifier) and a set of 5QI-based QoS parameters such as PDB, PER, and GFBR.
+
+- A single PDU Session may contain multiple QoS Flows.
+- Each flow is assigned a 5QI that reflects its service characteristics (e.g., VoIP, URLLC command, video stream), and therefore inherits the QoS policy defined for that 5QI.
+- Upon receiving packets, the UPF classifies them by determining which QoS Flow (QFI) each packet belongs to and forwards them to the RAN accordingly.
+
 ### PCF — “QoS Class Designer”
 
 📘 **PCF = Policy engine that defines and provides QoS policies**
@@ -189,11 +198,11 @@ Example👇
 and maps it to the corresponding **DRB (Data Radio Bearer)**
 - Each DRB forms a **logical bearer stack (PDCP–RLC–MAC)** for transmission
 
-**SDAP responsibilities:**  
+#### SDAP responsibilities
 1️⃣ Map QoS Flows (QFIs) to DRBs  
 2️⃣ Propagate QoS properties (delay, reliability, priority) to lower layers
 
-**QoS reflection by layer:**
+#### QoS reflection by layer
 - **PDCP:** duplication, reordering, header compression
 - **RLC:** AM/UM mode, buffer size, discard timer
 - **MAC:** scheduling weight, MCS/HARQ adaptation
@@ -329,16 +338,30 @@ The UPF handles each packet following the sequence as below:
 
 The QFI / 5QI information is the key trigger that propagates QoS control signaling through all RAN layers (PDCP–RLC–MAC).
 
-### SDAP Role — QFI Interpretation & DRB Mapping
+### SDAP Layer — QFI Interpretation & DRB Mapping
 
-- Interprets QFI received from the UPF
-- Maps each QoS Flow to a DRB (Data Radio Bearer) and forwards it to **PDCP ➔ RLC (DTCH)**
-- Once mapped, lower layers apply QoS requirements (PDB, PER, etc.) based on the 5QI
-- Depending on policy, QFI ↔ DRB mapping can be **1:1** or **N:1**
+- Interprets QFI received from the UPF.
+- Maps each QoS Flow to a corresponding DRB (Data Radio Bearer) and forwards packets to **PDCP ➔ RLC (DTCH)**.
 
-### PDCP Layer — 5QI-based Handling
+#### 🔗 QFI–DRB Mapping
+
+QFI–DRB mapping can be either 1:1 or N:1 depending on policy.
+
+- **1:1 mapping (Dedicated DRB)** ➔ Each QoS Flow gets its own DRB.
+- **N:1 mapping (Aggregation)**
+    - Multiple QoS Flows of a UE can be grouped into the same DRB if they share the same 5QI or similar QoS characteristics.
+    - ✅ **Pros:** Saves DRB count, reduces signaling overhead
+    - ⚠️ **Caution:** Aggregating flows with heterogeneous characteristics leads to:
+        - DRB configured based on the most stringent flow
+        - Other flows become over-served (unnecessarily high QoS)
+        - PDCP/RLC/MAC cannot guarantee per-flow QoS precisely
+
+### PDCP Layer — QFI/5QI-Driven Behavior
 
 Responsible for integrity protection, ciphering, reordering, and duplication.
+
+- DCP configuration is applied per DRB.
+- The PDCP configuration of a DRB is determined by the 5QI characteristics of the QoS Flow(s) mapped to that DRB.
 
 | QoS Requirement | PDCP Behavior |
 | --- | --- |
@@ -346,11 +369,13 @@ Responsible for integrity protection, ciphering, reordering, and duplication.
 | **High reliability (5QI = 4–7)** | Use PDCP duplication if needed (RLC-AM handles ARQ) |
 | **Throughput-oriented (eMBB)** | Aggressive ROHC, moderate reordering window, efficient batching |
 
-➡️ PDCP fine-tunes delay/reliability trade-offs based on 5QI, while ARQ retransmission is managed by RLC-AM.
+➡️ PDCP tunes the latency/reliability trade-off based on the 5QI characteristics of the QoS Flow(s) mapped to the DRB, while ARQ retransmissions are handled by RLC-AM.
 
-### RLC Layer — 5QI-based Handling
+### RLC Layer — QFI/5QI-Driven Behavior
 
 Performs segmentation/reassembly and ARQ (AM) or low-latency transmission (UM), then forwards RLC logical channel (DTCH) to the MAC layer.
+
+- Like PDCP, RLC configuration is applied per DRB.
 
 | QoS Type | RLC Mode | Key Features |
 | --- | --- | --- |
@@ -358,20 +383,27 @@ Performs segmentation/reassembly and ARQ (AM) or low-latency transmission (UM), 
 | **eMBB / GBR (5QI=4~7)** | **AM (Acknowledged Mode)** | Reliable via ARQ retransmissions (`t-PollRetransmit`, `t-StatusProhibit`, `maxRetx`, etc.) |
 | **mMTC / best effort (5QI=9)** | **UM or AM (optional)** | Balance between resource use and reliability |
 
-➡️ RLC mode is configured by RRC (RAN) and derived from 5QI policies (via PCF/SMF).
+➡️ The RLC mode of a DRB is configured by RRC based on the 5QI characteristics of the QoS Flow(s) mapped to that DRB (via PCF/SMF).
 
-### MAC Layer — 5QI-based Scheduling & Resource Control
+### MAC Layer — QFI/5QI-Driven Scheduling & Resource Control
 
 Handles PRB/RBG-level scheduling and HARQ processes, passing assigned resources to the PHY layer via DL-SCH/UL-SCH transport channels.
 
+- Scheduling operates per LC (Logical Channel = DRB).
+    - BSR (Buffer Status Report) is received per LC.
+    - Resources are allocated based on each LC’s QoS attributes.
+    - If multiple QoS Flows map to a single LC:
+        - DRB configuration reflects the most critical flow
+        - Other flows may become over-served ➡️ *aggregation recommended only for similar 5QIs*
+
 | QoS Attribute | MAC-Level Control |
 | --- | --- |
-| **Priority Level** | Scheduler assigns weights based on QFI / 5QI priority |
-| **Packet Delay Budget (PDB)** | Prioritizes flows nearing delay threshold |
-| **PER (Packet Error Rate)** | Adjusts MCS selection and HARQ retransmission count |
+| **Priority Level** | Scheduler weights based on LC priority |
+| **Packet Delay Budget (PDB)** | Prioritize LCs nearing delay budget |
+| **PER (Packet Error Rate)** | MCS selection / HARQ retransmission tuning |
 | **GBR / non-GBR** | Reserves resources for GFBR, distributes remaining to non-GBR flows |
 
-➡️ The MAC scheduler dynamically allocates RBG-level resources using 5QI parameters (PDB, PER, priority).
+➡️ MAC scheduler dynamically allocates RBGs using LC QoS attributes (Priority, PDB, PER), which originate from the 5QI parameters of the QoS Flow(s) mapped to that LC.
 
 ### Reference Specifications
 
@@ -381,6 +413,80 @@ Handles PRB/RBG-level scheduling and HARQ processes, passing assigned resources 
 - 3GPP TS **38.321**: Medium Access Control (MAC)
 - 3GPP TS **38.300**: NR and NG-RAN Overall description
 
+## *️⃣ Hierarchical QoS Management in 5G RAN
+
+---
+
+5G RAN controls QoS at multiple hierarchical levels, each operating at a different granularity.
+
+### Level 1: Network Slice (S-NSSAI) — Resource Partitioning Across UEs
+
+- Slice-level policies partition overall RAN resources.
+- All UEs/DRBs belonging to the same S-NSSAI follow the same slice policy:
+    - RAN resource partitioning (e.g., PRB split)
+    - Slice-level isolation
+    - MAC scheduler selection
+
+```
+Slice 1 (eMBB, S-NSSAI=1):
+├─ DRB1, DRB2 (UE1)
+├─ DRB1 (UE2)
+└─ Slice-level policies:
+   ├─ RAN resource allocation ratio (e.g., 50% PRB)
+   ├─ Admission control
+   └─ MAC scheduler policy (e.g., PF vs RR)
+
+Slice 2 (URLLC, S-NSSAI=2):
+├─ DRB3 (UE1)
+├─ DRB1, DRB2 (UE3)
+└─ Guarantees low latency and high reliability
+```
+
+### Level 2: PDU Session — UE-Specific Connectivity Sessions
+
+- A UE may have multiple PDU Sessions.
+- Each PDU Session is bound to a specific S-NSSAI + DNN.
+    - Session AMBR (bandwidth cap per session)
+    - UPF routing path selection
+
+```
+UE1:
+├─ PDU Session 1 (internet, S-NSSAI=1)
+│  └─ QoS Flow 1, 2, 3
+└─ PDU Session 2 (IMS, S-NSSAI=2)
+   └─ QoS Flow 4
+```
+
+### Level 3: DRB (Data Radio Bearer) — Execution Unit in the RAN Stack
+
+QoS Flows (QFIs) are the smallest QoS policy unit in the Core, but the RAN executes QoS at the DRB level, and after SDAP (PDCP–RLC–MAC), Flow-level distinctions no longer exist.
+
+- SDAP maps multiple QoS Flows to DRBs (1:1 or N:1)
+- Each DRB maintains its own QoS configuration:
+    - PDCP/RLC configuration (AM/UM, duplication, etc.)
+    - Per-DRB QoS policy enforcement
+
+```
+UE1:
+├─ DRB1 ← QoS Flow 1, 2 (both 5QI=9, video)
+├─ DRB2 ← QoS Flow 3 (5QI=5, IMS)
+└─ DRB3 ← QoS Flow 4 (5QI=1, URLLC)
+```
+
+### Level 4: QoS Flow — Fine-Grained QoS for Applications
+
+- Managed by the Core (UPF/SMF)
+- Each application flow has its own 5QI, GFBR, MFBR, PDB
+- Not distinguishable within the RAN, as scheduling/queuing occurs per DRB/LC
+
+### 💡 QoS Management Coordination
+
+To guarantee end-to-end QoS across the hierarchy:
+1. Slice level: Proper partitioning of RAN resources
+2. Core (UPF): Fine-grained scheduling per QoS Flow
+3. SDAP: Efficient QoS Flow → DRB mapping
+4. RAN (PDCP/RLC/MAC): Correct per-DRB handling
+
 
 ## ⏫️ Uplink Process
 
@@ -388,12 +494,12 @@ Handles PRB/RBG-level scheduling and HARQ processes, passing assigned resources 
 
 In the downlink, packets are generated in the core network and pass through multiple entities. In contrast, uplink transmission starts entirely inside the UE.
 
-- The UE modem processes the full protocol stack from the application layer to the physical layer and attaches session information and QoS identifiers such as QFI and 5QI so that the core and gNB can correctly interpret each packet.
-- The UE cannot transmit immediately and must first obtain an uplink grant from the gNB.
+- The UE modem processes the full protocol stack from the Application layer down to PHY, attaching the necessary session identifiers and QoS markers (QFI, 5QI, etc.) so the Core and gNB can correctly interpret the packets.
+- The UE, however, cannot transmit immediately. It must first receive an uplink grant from the gNB.
     - The grant reflects the service priority and resource policy configured by the RAN and core network.
-- Uplink QoS control is therefore determined by the assigned uplink grant and by how the gNB handles the UE’s transmitted data.
+- As a result, uplink QoS enforcement is performed through the uplink grant assigned by the gNB and the subsequent handling of received UE data within the RAN and Core.
 
-### 1️⃣ Application & Transport
+### 1️⃣ Application – Transport – IP
 
 - The UE’s application generates multiple IP flows simultaneously through different sockets (e.g., video, audio, text).
 - Each flow is distinguished at the Transport layer (TCP/UDP) by its port number.
@@ -406,25 +512,63 @@ Example: during a video conference
 | Audio upload | Microphone stream | QFI=6 (5QI=1) |
 | Chat | Text messages | QFI=7 (5QI=9) |
 
-### 2️⃣ IP & SDAP
+- At the IP layer, each flow is identified using a 5-tuple.
 
-- Each IP flow is identified by its 5-tuple (src IP, dst IP, src port, dst port, protocol).
-- The SDAP layer assigns a QFI to each flow according to SMF policy and maps it to the corresponding QoS Flow.
-- In uplink, the UE tags the QFI directly before transmission.
-- Packets are then passed to lower layers via their assigned DRBs.
+### 2️⃣ SDAP
+
+QoS Flow classification and mapping for uplink.
+- The UE SDAP classifies each IP flow into the appropriate QoS Flow.
+- <kbd> Reflective QoS </kbd> mechanisms may be used.
+- The SDAP tags packets with the correct QFI before sending them to the gNB.
+- Based on the QFI, packets are delivered to the assigned DRB for lower-layer processing.
+
+#### 💡 Reflective QoS
+
+Reflective QoS allows the UE to "mirror" the QoS of downlink traffic, ensuring that uplink packets from the same application are mapped to the same QoS Flow without requiring additional signaling.
+
+##### **How it works:**
+
+- The SMF marks downlink packets with QFI + RQI (Reflective QoS Indicator).
+- The UE SDAP detects these tags and learns the QoS rule.
+- The UE automatically maps corresponding uplink traffic to the same QFI.
+
+##### **Benefits:**
+
+- No separate uplink QoS signaling → reduces signaling overhead
+- Ensures consistent QoS for bidirectional flows
+
 
 ### 3️⃣ PDCP–RLC–MAC
 
-- **PDCP**: Manages ordering and integrity according to QoS (e.g., retransmission, duplication).
-- **RLC**: Chooses AM or UM mode (e.g., URLLC → UM, eMBB → AM).
-- **MAC**: The gNB sends a Scheduling Grant, and the UE transmits within the allocated RBG resources according to that grant.
+- **PDCP**: Performs ordering, integrity protection, and duplication based on QoS characteristics.
+- **RLC**: Chooses AM or UM mode depending on QoS needs (e.g., URLLC → UM, eMBB → AM).
+- **MAC**: Cannot transmit until the UE receives an uplink grant from the gNB; once received, the UE transmits within the allocated RBG resources.
 
-### 4️⃣ RAN ➔ UPF
+### 4️⃣ UE → RAN (Physical Transmission)
 
-- The gNB reads the TEID from the received GTP-U packet and forwards it to the corresponding PDU Session.
-- The UPF identifies the session by TEID, applies PDR/FAR rules, and forwards the packet toward the external network.
+- The UE passes the Transport Block (TB) from MAC to PHY.
+- PHY performs channel coding, modulation, and MIMO processing.
+- The uplink transmission parameters are dictated by the uplink grant:
+    - Time/frequency resources (PRB/RBG)
+    - MCS (Modulation and Coding Scheme)
+    - The UE transmits over PUSCH (Physical Uplink Shared Channel) using the allocated resources.
 
-### 5️⃣ Internet Routing
+> **Uplink Grant Decision Factors:**  
+> The uplink grant is determined by the gNB MAC scheduler considering BSR (Buffer Status Report), Channel quality (CQI), and QoS requirements of each LC/DRB
+{: .prompt-info }
+
+
+### 5️⃣ RAN → UPF
+
+- The gNB receives the uplink packets and extracts the QFI at SDAP.
+- The data is encapsulated into a GTP-U tunnel, including the TEID.
+- Sent to the UPF via the N3 interface.
+- UPF identifies the PDU Session using TEID and applies:
+    - **PDR (Packet Detection Rule):** flow classification
+    - **FAR (Forwarding Action Rule):** forwarding/duplication/drop actions
+- Packets are forwarded through the N6 interface toward the external Data Network.
+
+### 6️⃣ Internet Routing
 
 Beyond the UPF, the uplink path follows the same routing process as downlink. It uses the MNO’s backbone routing tables to determine the next hop and traverses the Internet to reach the Application Server.
 
@@ -440,7 +584,7 @@ Beyond the UPF, the uplink path follows the same routing process as downlink. It
 | **Scheduled Grant (SG)** | gNB periodically reserves uplink resources | VoIP, periodic sensing, URLLC |
 | **Dynamic Grant (DG)** | UE requests uplink resources on demand | Video conference speech, file upload, event-driven traffic |
 
-### Dynamic Grant 할당 절차
+### Dynamic Grant Allocation Procedure
 
 #### (1) Application Layer
 
@@ -608,12 +752,12 @@ Both the choice of algorithm and its parameter tuning define the resulting laten
 - NewReno: conservative and steady
     - suited for background data flows
 
-🔹 Applications select and tune CC mechanisms depending on service goals:
+🔹 **Applications select and tune CC mechanisms depending on service goals:**
 - Real-time conferencing ➔ UDP-based custom rate control or tuned BBR variants
 - Streaming ➔ hybrid BBR/CUBIC with limited pacing delay
 - Web / file transfer ➔ standard TCP variants tuned for stability
 
-💡 Even small parameter adjustments can shift QoS outcomes dramatically:
+💡 **Even small parameter adjustments can shift QoS outcomes dramatically:**
 - Pacing rate (packets/ms) → burst control
 - RTT window (ms) → congestion sensitivity  
 - Initial cwnd (packets) → slow-start aggressiveness
@@ -643,13 +787,15 @@ In the operator’s core, the User Plane Function (UPF) performs traffic classif
 
 ###  📡 MAC scheduling
 
-The MAC layer allocates radio resources based on 5QI targets such as PDB and error rate. Scheduling and HARQ decisions translate QoS policies into actual airtime.
+The MAC layer allocates radio resources per LC (Logical Channel = DRB) and determines the scheduling priority based on each LC’s QoS attributes (Priority, PDB, PER).
 
-- Scheduling priorities reflect 5QI parameters (PDB, PER, priority level).
-- Adaptive modulation, coding, and HARQ decisions balance reliability and delay.
-- Dynamic schedulers (e.g., PF, RL-based) adapt in real-time to user load and channel conditions.
+🧩 **Scheduling considerations:**
+- LC priority: Scheduler weight assigned based on the priority level defined by the 5QI
+- PDB (Packet Delay Budget): LCs approaching their delay budget are prioritized
+- PER target: Determines MCS selection and HARQ retransmission behavior
+- GBR enforcement: GFBR-guaranteed LCs are served first, and remaining resources are distributed to non-GBR LCs
 
-✅ At this point, QoS becomes physically realized — resource allocation in MAC and PHY directly defines delay, reliability, and throughput.
+🎯 By combining these factors, the MAC scheduler allocates actual radio resources and enforces QoS at the physical layer.
 
 
 ## ✅ Conclusion
