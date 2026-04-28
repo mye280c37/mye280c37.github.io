@@ -163,3 +163,5 @@ This trend isn't solely about freedom from control. It's also about building com
 ### The Future Trajectory
 
 This shift toward infrastructure that goes "beyond traditional terrestrial networks," whether through satellite constellations like Starlink or mesh networks like Bitchat, is not a temporary reaction but an emerging mainstream trend. As both governments and natural events demonstrate the fragility of centralized systems, decentralized alternatives will transition from emergency backup solutions to primary communication channels.
+
+This same logic extends beyond local mesh applications. Satellite constellations like Starlink represent a very different path toward resilience: instead of removing infrastructure, they move it beyond terrestrial control. If Bitchat shows decentralization at the application layer, Starlink raises the same question at the infrastructure layer.
