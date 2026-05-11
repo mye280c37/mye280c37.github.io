@@ -2,27 +2,107 @@
 
 @plugin '@tailwindcss/typography';
 
+/* Enable dark mode based on the .dark class on the <html> element */
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
+  /* Brand colors */
+  --color-main: #14001e;
+  --color-muted: #5c4d66;
+  --color-accent: #d97706;
+
+  /* Background colors */
+  --color-bg-base: #efedf0;
+
+  /* Button colors */
+  --color-btn-primary-bg: #0284c7;
+  --color-btn-primary-text: #14001e;
+  --color-btn-secondary-border: #0284c7;
+  --color-btn-secondary: #0284c7;
+
+  /* Typography */
   --font-sans:
     Bricolage Grotesque Variable, Inter Variable, Inter, ui-sans-serif,
     system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+/* Dark mode overrides */
+.dark {
+  --color-brand: var(--color-brand-cool);
+  --color-bg-base: #1a0f1f;
+  --color-main: #d6d1da;
+  --color-muted: #9a8da3;
+  --color-accent: #facc15;
+  --color-btn-primary-bg: #22d3ee;
+  --color-btn-primary-text: #14001e;
+  --color-btn-secondary-border: var(--color-btn-primary-bg);
+  --color-btn-secondary-text: var(--color-btn-primary-bg)
+}
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
+  body {
+    background-color: var(--color-bg-base);
+    color: var(--color-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Default border color for consistency */
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/* Sync Tailwind Typography (prose) with semantic variables */
+:where(.prose) {
+  --tw-prose-body: var(--color-main) !important;
+  --tw-prose-headings: var(--color-main) !important;
+  --tw-prose-links: var(--color-accent) !important;
+  --tw-prose-bold: var(--color-main) !important;
+  --tw-prose-counters: var(--color-muted) !important;
+  --tw-prose-bullets: var(--color-muted) !important;
+  --tw-prose-hr: var(--color-muted) !important;
+  --tw-prose-quotes: var(--color-muted) !important;
+  --tw-prose-quote-borders: var(--color-muted) !important;
+  --tw-prose-captions: var(--color-muted) !important;
+  --tw-prose-code: var(--color-accent) !important;
+  --tw-prose-pre-code: var(--color-main) !important;
+  --tw-prose-pre-bg: var(--color-bg-base) !important;
+  --tw-prose-th-borders: var(--color-muted) !important;
+  --tw-prose-td-borders: var(--color-muted) !important;
+}
+
+
+/* Custom button styles using Tailwind utilities and semantic variables */
+@layer components {
+
+  .btn-primary,
+  .btn-secondary {
+    @apply px-5 py-3 rounded-md transition-all duration-300 font-bold inline-flex items-center justify-center;
+  }
+
+  .btn-primary {
+    background-color: var(--color-btn-primary-bg);
+    color: var(--color-btn-primary-text);
+  }
+
+  .btn-secondary {
+    @apply border-2;
+    border-color: var(--color-btn-secondary-border);
+    color: var(--color-btn-secondary-text);
+  }
+
+  /* Vivid Pop on Hover */
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    @apply -translate-y-1 opacity-100;
+    /* Neon glow effect in dark mode */
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
   }
 }
