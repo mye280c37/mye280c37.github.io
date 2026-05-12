@@ -1,0 +1,50 @@
+[
+  {
+    "title": "DRILL-Q: Delay-Responsive Intelligent Learning for Latency-sensitive QoS",
+    "authors": [
+      "Hyerin Kim",
+      "Katerina Koutlia",
+      "Biljana Bojović",
+      "Amir Ashtari",
+      "Gabriel Ferreira"
+    ],
+    "date": "2025-08",
+    "venue": "Proceedings of the 34th International Conference on Computer Communications and Networks (ICCCN)",
+    "doi": "https://doi.org/10.1109/ICCCN65249.2025.11134004"
+  },
+  {
+    "title": "Evolving 5G-LENA Towards 6G: Integrating AI for Intelligent Scheduling of Multi-Flow Traffic",
+    "authors": [
+      "Hyerin Kim",
+      "Katerina Koutlia",
+      "Biljana Bojović",
+      "Amir Ashtari",
+      "Gabriel Ferreira"
+    ],
+    "date": "2025-08",
+    "venue": "ICNS3 ‘25: Proceedings of the 2025 International Conference on ns-3",
+    "doi": "https://doi.org/10.1145/3747204.3747222"
+  },
+  {
+    "title": "Improving Spatial Reuse of Wireless LANs using Contextual Bandits",
+    "authors": [
+      "Hyerin Kim",
+      "Gwanwoo Na",
+      "Heeseon Im",
+      "Jungmin So"
+    ],
+    "date": "2023-11",
+    "venue": "IEEE Transactions on Wireless Communications",
+    "doi": "https://doi.org/10.1109/TWC.2023.3328358"
+  },
+  {
+    "title": "Improving Spatial Reuse of Wireless LAN Uplink Using BSS Color and Proximity Information",
+    "authors": [
+      "Hyerin Kim",
+      "Jungmin So"
+    ],
+    "date": "2021-11",
+    "venue": "MDPI Applied Sciences",
+    "doi": "https://doi.org/10.3390/app112211074"
+  }
+]

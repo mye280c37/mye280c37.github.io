@@ -1,0 +1,42 @@
+[
+  {
+    "title": "QoS-aware MAC-layer Resource Allocation for 5G/6G Networks",
+    "items": [
+      "Designing flow-level scheduling algorithms for QoS provisioning in B5G/6G systems",
+      "Translating CN-RAN QoS semantics (5QI, PDB, PER, GFBR) into per-TTI resource allocation decisions",
+      "Applying both optimization-based formulations and reinforcement learning approaches"
+    ]
+  },
+  {
+    "title": "Distributed Resource Allocation in Wireless Networks",
+    "items": [
+      "Addressing exposed and hidden terminal problems in dense wireless networks",
+      "Improving spatial reuse and overall performance by estimating states of neighboring devices",
+      "Studying Wi-Fi and cellular systems from a MAC-layer perspective"
+    ]
+  },
+  {
+    "title": "Cross-layer Resource Management and System-level Orchestration",
+    "items": [
+      "Connecting lower-layer scheduling decisions with application- and service-level requirements",
+      "Coordinating transport-, PDCP/RLC-, and MAC-layer parameters for multi-slice allocation",
+      "Leveraging orchestration frameworks such as O-RAN and network slicing"
+    ]
+  },
+  {
+    "title": "Resilient Multi-RAT Connectivity for Edge and Mobility Services",
+    "items": [
+      "Studying service- and power-aware fallback across 5G, Wi-Fi/local connectivity, NTN, and low-power wireless technologies",
+      "Measuring how heterogeneous monitoring and safety-control traffic behaves under staged power and connectivity conditions",
+      "Investigating RAT selection and coordination for maintaining service continuity during network and power disruptions"
+    ]
+  },
+  {
+    "title": "Decentralized and Resilient Network Infrastructure",
+    "items": [
+      "Exploring how future communication systems can reduce dependency on centralized terrestrial infrastructure",
+      "Maintaining distributed service continuity when terrestrial connectivity, power supply, or central cloud access is disrupted",
+      "Connecting resilience, decentralization, and edge-supported service continuity as a long-term research direction"
+    ]
+  }
+]

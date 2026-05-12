@@ -1,13 +1,15 @@
 ---
 interface Props {
+  href?: string;
   size?: "md" | "lg";
   block?: boolean;
-  style?: "outline" | "primary" | "inverted";
+  style?: "outline" | "primary";
   class?: string;
   [x: string]: any;
 }
 
 const {
+  href,
   size = "md",
   style = "primary",
   block,
@@ -15,26 +17,28 @@ const {
   ...rest
 } = Astro.props;
 
+const Element = href ? "a" : "button";
+
 const sizes = {
   md: "px-5 py-2.5",
   lg: "px-6 py-3",
 };
 
 const styles = {
-  outline: "border-2 border-black hover:bg-black text-black hover:text-white",
-  primary:
-    "bg-black text-white hover:bg-slate-900  border-2 border-transparent",
+  outline: "btn-secondary",
+  primary: "btn-primary",
 };
 ---
 
-<button
+<Element
+  href={href}
   {...rest}
   class:list={[
-    "rounded-sm text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200",
+    "rounded-sm text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 inline-block", // a 태그일 때를 대비해 inline-block 추가
     block && "w-full",
     sizes[size],
     styles[style],
     className,
-  ]}
-  ><slot />
-</button>
+  ]}>
+  <slot />
+</Element>

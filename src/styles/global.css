@@ -12,11 +12,11 @@
   --color-accent: #d97706;
 
   /* Background colors */
-  --color-bg-base: #efedf0;
+  --color-base: #f5f5f5;
 
   /* Button colors */
   --color-btn-primary-bg: #0284c7;
-  --color-btn-primary-text: #14001e;
+  --color-btn-primary-text: #f5f5f5;
   --color-btn-secondary-border: #0284c7;
   --color-btn-secondary: #0284c7;
 
@@ -30,7 +30,7 @@
 /* Dark mode overrides */
 .dark {
   --color-brand: var(--color-brand-cool);
-  --color-bg-base: #1a0f1f;
+  --color-base: #1a0f1f;
   --color-main: #d6d1da;
   --color-muted: #9a8da3;
   --color-accent: #facc15;
@@ -42,7 +42,7 @@
 
 @layer base {
   body {
-    background-color: var(--color-bg-base);
+    background-color: var(--color-base);
     color: var(--color-main);
     transition: background-color 0.3s ease, color 0.3s ease;
     -webkit-font-smoothing: antialiased;
@@ -57,6 +57,36 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
+  :root {
+    --card-bg: #F8F7FF;
+    --card-border: theme('colors.indigo.100');
+    --card-text-title: #2D243F;
+    --card-text-body: #4A3E5F;
+    --card-shadow: rgba(165, 180, 252, 0.2);
+    --tag-bg: rgba(99, 102, 241, 0.08);
+    --tag-border: rgba(99, 102, 241, 0.15);
+    --tag-text: #5558f1;
+  }
+
+  .dark {
+    --card-bg: #1A1523;
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-text-title: #FFFFFF;
+    --card-text-body: rgba(255, 255, 255, 0.8);
+    --card-shadow: rgba(34, 211, 238, 0.1);
+    --tag-bg: rgba(255, 255, 255, 0.05);
+    --tag-border: rgba(255, 255, 255, 0.1);
+    --tag-text: rgba(255, 255, 255, 0.6);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 50px;
 }
 
 /* Sync Tailwind Typography (prose) with semantic variables */
@@ -73,7 +103,7 @@
   --tw-prose-captions: var(--color-muted) !important;
   --tw-prose-code: var(--color-accent) !important;
   --tw-prose-pre-code: var(--color-main) !important;
-  --tw-prose-pre-bg: var(--color-bg-base) !important;
+  --tw-prose-pre-bg: var(--color-base) !important;
   --tw-prose-th-borders: var(--color-muted) !important;
   --tw-prose-td-borders: var(--color-muted) !important;
 }
@@ -105,4 +135,211 @@
     /* Neon glow effect in dark mode */
     box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
   }
+
+  .card-anchor {
+    position: relative;
+    width: 100%;
+    height: auto;
+    /* 내용만큼 늘어나야 아래 카드가 밀림 */
+    margin-bottom: 1.5rem;
+  }
+
+  .card-title {
+    /* font-extrabold */
+    font-weight: 800;
+    font-size: 1.5rem;
+    /* 24px */
+    line-height: 2rem;
+    /* 32px */
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--card-text-title);
+  }
+
+  .card-body {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--card-text-body);
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 2.5rem;
+    padding: 2rem;
+    overflow: hidden;
+    transition: all 500ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  @media (min-width: 768px) {
+    .card-anchor {
+      height: 600px;
+      margin-bottom: 0;
+    }
+
+    .card-title {
+      /* 30px */
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+    }
+
+    .card-body {
+      position: absolute;
+      height: 100%;
+    }
+
+    .card-content {
+      height: 350px;
+    }
+
+    .card-anchor:hover .card-body {
+      height: auto;
+      min-height: 100%;
+      z-index: 50;
+      transform: scale(1.03);
+      border-color: rgba(var(--color-accent), 0.4);
+      box-shadow: 0 20px 50px var(--card-shadow);
+    }
+
+    .card-anchor:hover .card-content {
+      height: auto;
+    }
+
+    .card-anchor:hover .card-title {
+      color: var(--color-accent);
+    }
+
+    .card-anchor:hover .card-description {
+      max-height: 500px;
+      opacity: 1;
+      margin-top: 1.5rem;
+    }
+
+    .card-anchor:hover .card-links {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .card-anchor:hover .card-link-text {
+      max-width: 300px;
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .card-anchor {
+      height: 470px;
+      margin-bottom: 0;
+    }
+
+    .card-content {
+      height: 260px;
+    }
+  }
+
+  .card-anchor.is-expanded .card-title {
+    color: var(--color-accent);
+  }
+
+  .card-anchor.is-expanded .card-body {
+    border-color: rgba(var(--color-accent), 0.4);
+    box-shadow: 0 10px 30px var(--card-shadow);
+  }
+
+  .card-description {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 500ms ease-in-out;
+  }
+
+  .card-anchor.is-expanded .card-description {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 1.5rem;
+  }
+
+  .card-links {
+    display: flex;
+    flex-direction: row;
+    /* gap-5 */
+    gap: 1.25rem;
+    transition: all 500ms ease;
+  }
+
+  .card-link-text {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 500ms ease;
+  }
+
+  .card-anchor.is-expanded .card-links {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .card-anchor.is-expanded .card-link-text {
+    max-width: 300px;
+    opacity: 1;
+  }
+
+  .tag {
+    background-color: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    color: var(--tag-text);
+    @apply px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all duration-300 opacity-70;
+  }
+
+  .card-anchor:hover .tag {
+    @apply opacity-100 border-accent/30;
+  }
+
+  /* 개별 태그에 호버했을 때 포인트 효과 */
+  .tag:hover {
+    @apply scale-110 border-accent text-accent;
+    background-color: rgba(var(--color-accent), 0.1);
+  }
+
+  .accordion-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--card-text-body);
+    @apply w-full rounded-2xl mb-4 overflow-hidden transition-all duration-300;
+  }
+
+  .accordion-card:has(details[open]) {
+    border-color: rgba(var(--color-accent), 0.4);
+    box-shadow: 0 10px 30px var(--card-shadow);
+    transform: translateY(-2px);
+  }
+
+  details[open] .accordion-arrow {
+    @apply rotate-180 text-accent;
+  }
+
+  details[open] .accordion-content {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.nav-link {
+  @apply transition-colors duration-300;
+}
+
+.nav-link.active {
+  color: var(--color-accent);
+  font-weight: 700;
 }

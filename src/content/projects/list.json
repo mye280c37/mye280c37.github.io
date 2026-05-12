@@ -1,0 +1,35 @@
+[
+  {
+    "title": "CIRES: Critical Infrastructure Resilience Through Edge Computing Systems",
+    "summary": "Intelligent Edge Orchestration through Resilient Multi-RAT Connectivity.",
+    "description": "Investigating seamless connectivity through Multi-RAT (Radio Access Technology) integration within the CIRES project. My research focuses on orchestrating diverse access technologies to maintain high-availability edge services, ensuring that Europe's critical infrastructure remains operational despite communication disruptions or resource fluctuations.",
+    "links": {
+      "website": "https://www.ce.cit.tum.de/en/cm/research-projects/"
+    },
+    "tags": [
+      "Horizon Europe",
+      "Edge Computing",
+      "Network Resilience",
+      "Decentralized Orchestration",
+      "Multi-RAT"
+    ],
+    "status": "Ongoing"
+  },
+  {
+    "title": "GSoC 2024: Enhancement of RL Approach Accessibility in NR",
+    "summary": "Enhancing Reinforcement Learning Integration for 5G LENA in ns-3.",
+    "description": "Selected for Google Summer of Code 2024 with the ns-3 organization. I developed a standardized RL interface by integrating OpenAI Gym with the ns3-gym module for 5G LENA. My work included implementing a resilient RL-based scheduler, providing a high-fidelity simulation environment for AI-driven radio resource management in next-generation networks.",
+    "links": {
+      "github": "https://gitlab.com/mye280c37/5g-lena-integrated-with-ns-3-gym/-/tree/gsoc24-nr-usability?ref_type=heads",
+      "wiki": "https://www.nsnam.org/wiki/GSOC2024RLUsability5G"
+    },
+    "tags": [
+      "Resource Management",
+      "Reinforcement Learning",
+      "ns-3",
+      "5G LENA",
+      "OpenAI Gym"
+    ],
+    "status": "Completed"
+  }
+]

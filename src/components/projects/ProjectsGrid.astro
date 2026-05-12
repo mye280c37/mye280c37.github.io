@@ -1,0 +1,9 @@
+---
+// src/components/projects/ProjectsGrid.astro
+import ProjectCard from "./ProjectCard.astro";
+import projects from "../../content/projects/list.json"; // 직접 경로 혹은 컬렉션 사용
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  {projects.map((project) => <ProjectCard project={project} />)}
+</div>

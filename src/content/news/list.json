@@ -1,0 +1,61 @@
+[
+  {
+    "date": "2026-04-10",
+    "emoji": "🎤🇳🇱",
+    "title": "Connected Mobility Doctoral Seminar, Delft University of Technology, Netherlands",
+    "description": "Talk on 'Edge Resilience from a Network Perspective'"
+  },
+  {
+    "date": "2025-09-01",
+    "emoji": "🚀",
+    "title": "Started PhD at Technical University of Munich (TUM)"
+  },
+  {
+    "date": "2025-08-28",
+    "emoji": "🎓",
+    "title": "Received M.S. in Computer Science from Seoul National University (SNU)"
+  },
+  {
+    "date": "2025-08-20",
+    "emoji": "🎤🇯🇵",
+    "title": "Oral Presentation at ICNS3 Conference, Osaka, Japan",
+    "description": "Selected to present our paper on 'Evolving 5G-LENA Towards 6G: Integrating AI for Intelligent Scheduling of Multi-Flow Traffic'"
+  },
+  {
+    "date": "2025-08-05",
+    "emoji": "🎤🇯🇵",
+    "title": "Oral Presentation at IEEE ICCCN Conference, Tokyo, Japan",
+    "description": "Selected to present our paper on 'DRILL-Q: Delay-Responsive Intelligent Learning for Latency-sensitive QoS'"
+  },
+  {
+    "date": "2024-05-27",
+    "emoji": "🌻",
+    "title": "Selected as Google Summer of Code 2024 Contributor @ ns-3",
+    "description": "Working on enhancing MAC-layer simulation models for 5G/6G networks."
+  },
+  {
+    "date": "2023-10-18",
+    "emoji": "📜",
+    "title": "Paper Accepted to IEEE Transactions on Wireless Communications"
+  },
+  {
+    "date": "2023-09-01",
+    "emoji": "🚀",
+    "title": "Started Master's program at Seoul National University (SNU)"
+  },
+  {
+    "date": "2023-08-22",
+    "emoji": "🎓",
+    "title": "Received B.S. in Computer Science / German Culture from Sogang University"
+  },
+  {
+    "date": "2021-11-17",
+    "emoji": "📜",
+    "title": "Paper accepted to MDPI Applied Sciences"
+  },
+  {
+    "date": "2019-02-20",
+    "emoji": "🚀",
+    "title": "Started Bachelor's program at Sogang University"
+  }
+]

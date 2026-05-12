@@ -1,0 +1,88 @@
+---
+import Button from "@/components/ui/button.astro";
+import { getEntry } from "astro:content";
+
+interface Prpos {
+  count?: number;
+}
+
+const { count } = Astro.props;
+
+const newsEntry = await getEntry("news", "list");
+
+// sort by date (newest first)
+const allNewsSorted = newsEntry.data.sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+);
+const displayNews = count ? allNewsSorted.slice(0, count) : allNewsSorted;
+const showButton = count && allNewsSorted.length > count;
+
+let lastYear = "";
+---
+
+<div class="relative max-w-4xl mx-auto py-10 px-4">
+  <div
+    class="absolute left-[120px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-accent/50 via-accent/20 to-transparent">
+  </div>
+
+  <div class="space-y-12">
+    {
+      displayNews.map((item) => {
+        const dateObj = new Date(item.date);
+        const year = dateObj.getFullYear().toString();
+        const month = dateObj.toLocaleString("en-US", { month: "short" });
+        const day = dateObj.getDate();
+        const monthDay = `${month} ${day}`;
+
+        const isNewYear = year !== lastYear;
+        lastYear = year;
+
+        return (
+          <div class="relative">
+            {isNewYear && (
+              <div class="flex justify-end mb-8 opacity-20 select-none">
+                <span class="text-3xl font-black italic text-main tracking-tighter">
+                  {year}
+                </span>
+              </div>
+            )}
+
+            <div class="flex items-start">
+              <div class="w-[100px] shrink-0 text-right pr-10 pt-1">
+                <span class="font-mono text-md font-bold text-muted">
+                  {monthDay}
+                </span>
+              </div>
+
+              <div class="relative z-10 flex items-center justify-center mt-2">
+                <div class="absolute w-6 h-6 rounded-full bg-accent/20 animate-pulse" />
+                <div class="w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_10px_rgb(var(--color-accent))]" />
+              </div>
+
+              <div class="flex-1 pl-8 group">
+                <h3 class="text-xl font-bold leading-tight">
+                  {item.emoji} {item.title}
+                </h3>
+                {item.description && (
+                  <p class="text-muted text-base leading-relaxed opacity-90">
+                    {item.description}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+  {
+    showButton && (
+      <div class="flex justify-end mt-12">
+        {" "}
+        <Button href="/news" style="primary">
+          See All News
+        </Button>
+      </div>
+    )
+  }
+</div>

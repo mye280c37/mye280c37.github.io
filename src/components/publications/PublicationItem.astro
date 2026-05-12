@@ -1,0 +1,78 @@
+---
+// src/components/publications/PublicationItem.astro
+const { publication, showDate = true } = Astro.props;
+const { title, authors, venue, date, doi } = publication;
+
+import { Icon } from "astro-icon/components";
+
+const publishDate = new Date(date);
+const year = publishDate.getFullYear();
+const month = publishDate.toLocaleString("en-US", { month: "short" });
+---
+
+<div class="group py-5">
+  <div class="flex flex-col md:flex-row md:items-baseline gap-4">
+    <span
+      class:list={[
+        "text-accent font-mono font-medium min-w-[100px] shrink-0",
+        {
+          "hidden md:block md:invisible": !showDate,
+        },
+      ]}>
+      {month}
+      {year}
+    </span>
+
+    <div class="flex-1">
+      <a
+        href={doi || "#"}
+        target="_blank"
+        rel="noopener"
+        class="group inline-flex items-center gap-2 decoration-accent decoration-2 underline-offset-4 w-full">
+        <h3
+          class="text-xl md:text-2xl font-bold transition-all duration-300 group-hover:underline group-hover:scale-[1.005] origin-left leading-tight">
+          {title}
+        </h3>
+        <div class="pt-1 shrink-0">
+          <Icon
+            name="bx:link-external"
+            class="w-5 h-5 opacity-0 -translate-x-2 translate-y-2 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0"
+          />
+        </div>
+      </a>
+
+      <p class="text-main/70 mt-2 font-medium leading-relaxed">
+        {
+          authors.map((author, index) => {
+            const isMe = author === "Hyerin Kim";
+            const isLast = index === authors.length - 1;
+            const isSecondToLast = index === authors.length - 2;
+
+            return (
+              <>
+                <span
+                  class={
+                    isMe
+                      ? "text-main font-bold underline decoration-dotted"
+                      : ""
+                  }>
+                  {author}
+                </span>
+                {!isLast &&
+                  (authors.length === 2
+                    ? " and "
+                    : isSecondToLast
+                      ? ", and "
+                      : ", ")}
+              </>
+            );
+          })
+        }
+      </p>
+
+      <p class="text-muted mt-1 font-medium italic">
+        {venue}
+      </p>
+    </div>
+  </div>
+</div>

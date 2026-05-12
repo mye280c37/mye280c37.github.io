@@ -1,53 +1,56 @@
 ---
 import { Picture } from "astro:assets";
-import heroImage from "@/assets/hero.png";
+import profile from "@/assets/profile.gif";
 import Link from "@/components/ui/link.astro";
 import { Icon } from "astro-icon/components";
 ---
 
 <main
-  class="grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12 md:pb-24">
-  <div class="py-6 md:order-1 hidden md:block">
+  class="grid grid grid-cols-1 lg:grid-cols-10 gap-8 items-center pt-16 pb-8 md:pt-12 md:pb-24">
+  <div class="lg:col-span-4 flex justify-center py-6 lg:order-last lg:pr-2">
     <Picture
-      src={heroImage}
-      alt="Astronaut in the air"
+      src={profile}
+      alt="Profile Picture"
       widths={[200, 400, 600]}
       sizes="(max-width: 800px) 100vw, 620px"
       loading="eager"
       format="avif"
+      class="w-64 h-64 lg:w-[480px] lg:h-[480px] rounded-full aspect-square object-cover border-2 lg:border-4 border-accent p-1"
     />
   </div>
-  <div>
+  <div class="lg:col-span-6 text-center lg:text-left lg:pl-4">
     <h1
       class="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
-      Marketing website done with Astro
+      Hyerin Kim
     </h1>
-    <p class="text-lg mt-4 text-slate-600 max-w-xl">
-      Astroship is a starter template for startups, marketing websites & landing
-      pages.<wbr /> Built with Astro.build and TailwindCSS. You can quickly create
-      any website with this starter.
+    <p class="text-muted text-lg mt-4">
+      Doctoral researcher at the Technical University of Munich, exploring
+      QoS-aware wireless systems and resilient multi-RAT infrastructure for
+      service continuity under constrained network conditions.
     </p>
-    <div class="mt-6 flex flex-col sm:flex-row gap-3">
-      <Link
-        href="#"
-        href="https://web3templates.com/templates/astroship-starter-website-template-for-astro"
+    <div class="mt-8 flex gap-4 justify-center lg:justify-start items-center">
+      <a
+        href="https://linkedin.com/in/mye280c37"
         target="_blank"
-        class="flex gap-1 items-center justify-center"
-        rel="noopener">
-        <Icon class="text-white w-5 h-5" name="bx:bxs-cloud-download" />
-
-        Download for Free
-      </Link>
-      <Link
-        size="lg"
-        style="outline"
         rel="noopener"
-        href="https://github.com/surjithctly/astroship"
-        class="flex gap-1 items-center justify-center"
-        target="_blank">
-        <Icon class="text-black w-4 h-4" name="bx:bxl-github" />
-        GitHub Repo
-      </Link>
+        aria-label="LinkedIn"
+        class="text-main hover:-translate-y-1 hover:scale-[1.2]">
+        <Icon class="w-8 h-8 lg:w-9 lg:h-9" name="bx:bxl-linkedin-square" />
+      </a>
+      <a
+        href="https://github.com/mye280c37"
+        target="_blank"
+        rel="noopener"
+        aria-label="GitHub"
+        class="text-main hover:-translate-y-1 hover:scale-[1.2]">
+        <Icon class="w-8 h-8 lg:w-9 lg:h-9" name="bx:bxl-github" />
+      </a>
+      <a
+        href="mailto:hyerin.kim@tum.de"
+        aria-label="Email"
+        class="text-main hover:-translate-y-1 hover:scale-[1.2]">
+        <Icon class="w-8 h-8 lg:w-9 lg:h-9" name="bx:bxs-envelope" />
+      </a>
     </div>
   </div>
 </main>

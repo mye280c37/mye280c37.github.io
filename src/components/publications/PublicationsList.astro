@@ -1,0 +1,53 @@
+---
+import { getEntry } from "astro:content";
+import PublicationItem from "./PublicationItem.astro";
+
+const pubEntry = await getEntry("publications", "list");
+const allPapers = pubEntry.data;
+
+// 2. 최신순 정렬
+const sortedPapers = allPapers.sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+);
+
+// 3. 연도별 그룹화 (선택 사항 - UI가 훨씬 깔끔해짐)
+const papersByYear = sortedPapers.reduce((acc, paper) => {
+  const year = new Date(paper.date).getFullYear();
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(paper);
+  return acc;
+}, {});
+
+const years = Object.keys(papersByYear).sort((a, b) => b - a);
+---
+
+<div class="publications-container">
+  {
+    years.map((year) => (
+      <section class="mb-8">
+        <div class="flex items-center gap-4">
+          <h2 class="text-2xl font-bold text-main">{year}</h2>
+          <div class="h-[1px] flex-1 bg-muted/30" />
+        </div>
+
+        <div class="space-y-2">
+          {papersByYear[year].map((paper, index) => {
+            const currentMonth = new Date(paper.date).toLocaleString("en-US", {
+              month: "short",
+            });
+
+            const prevPaper = papersByYear[year][index - 1];
+            const prevMonth = prevPaper
+              ? new Date(prevPaper.date).toLocaleString("en-US", {
+                  month: "short",
+                })
+              : null;
+            const showDate = currentMonth !== prevMonth;
+
+            return <PublicationItem publication={paper} showDate={showDate} />;
+          })}
+        </div>
+      </section>
+    ))
+  }
+</div>

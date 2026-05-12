@@ -1,95 +1,101 @@
 ---
 import Container from "@/components/container.astro";
-import Link from "@/components/ui/link.astro";
 import ThemeToggle from "@/components/themetoggle.astro";
-import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+
+const { pathname } = Astro.url;
+const isHome = pathname === "/" || pathname === "/index.html";
 
 const menuitems = [
   {
-    title: "Features",
-    path: "#",
-    children: [
-      { title: "Action", path: "/" },
-      { title: "Another action", path: "#" },
-      { title: "Dropdown Submenu", path: "#" },
-      { title: "404 Page", path: "/404" },
-    ],
+    title: "News",
+    path: "#news",
   },
   {
-    title: "Pricing",
-    path: "/pricing",
+    title: "Research Interests",
+    path: "#research-interests",
   },
   {
-    title: "About",
-    path: "/about",
+    title: "Publications",
+    path: "#publications",
   },
   {
-    title: "Blog",
-    path: "/blog",
-  },
-  {
-    title: "Contact",
-    path: "/contact",
-  },
-  {
-    title: "Pro Version",
-    badge: true,
-    path: "https://astroship-pro.web3templates.com/",
+    title: "Projects",
+    path: "#projects",
   },
 ];
 ---
 
-<Container>
-  <header class="flex flex-col lg:flex-row justify-between items-center my-5">
-    <Astronav>
-      <div class="flex w-full lg:w-auto items-center justify-between">
-        <a href="/" class="text-lg"
-          ><span class="font-bold text-slate-800">Astro</span><span
-            class="text-slate-500">ship</span
-          >
-        </a>
-        <div class="block lg:hidden">
-          <MenuIcon class="w-4 h-4 text-gray-800" />
+<div class="sticky top-0 z-50 w-full bg-base backdrop-blur-md">
+  <Container>
+    <header class="flex flex-col lg:flex-row justify-between items-center my-5">
+      <Astronav>
+        <div class="flex w-full lg:w-auto items-center justify-between">
+          <a href="/#" class="text-xl font-bold">mye280c37</a>
+          <div class="block lg:hidden">
+            <MenuIcon class="w-4 h-4 text-gray-800" />
+          </div>
+        </div>
+        {
+          isHome && (
+            <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
+              <ul class="flex flex-col lg:flex-row lg:gap-3">
+                {menuitems.map((item, index) => (
+                  <>
+                    {!item.children && (
+                      <li>
+                        <a
+                          href={item.path}
+                          class="nav-link flex lg:px-3 py-2 items-center text-muted hover:text-accent">
+                          <span> {item.title}</span>
+                        </a>
+                      </li>
+                    )}
+                  </>
+                ))}
+              </ul>
+            </MenuItems>
+          )
+        }
+      </Astronav>
+      <div>
+        <div class="hidden lg:flex items-center gap-4">
+          <ThemeToggle />
         </div>
       </div>
-      <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
-        <ul class="flex flex-col lg:flex-row lg:gap-3">
-          {
-            menuitems.map((item, index) => (
-              <>
-                {item.children && (
-                  <Dropdown
-                    title={item.title}
-                    children={item.children}
-                    lastItem={index === menuitems.length - 1}
-                  />
-                )}
+    </header>
+  </Container>
+</div>
 
-                {!item.children && (
-                  <li>
-                    <a
-                      href={item.path}
-                      class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
-                      <span> {item.title}</span>
-                      {item.badge && (
-                        <span class="ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-indigo-600 rounded-full">
-                          New
-                        </span>
-                      )}
-                    </a>
-                  </li>
-                )}
-              </>
-            ))
+<script>
+  // 실행 시점 보장을 위해 DOMContentLoaded 사용
+  document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll("section[id]"); // ID가 있는 section들만 감시
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px", // 화면 중간쯤 왔을 때 인식하도록 범위 조절
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+
+          // 모든 링크에서 active 제거
+          navLinks.forEach((link) => link.classList.remove("active"));
+
+          // 현재 섹션 ID와 href가 일치하는 링크에 active 추가
+          const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+          if (activeLink) {
+            activeLink.classList.add("active");
           }
-        </ul>
-      </MenuItems>
-    </Astronav>
-    <div>
-      <div class="hidden lg:flex items-center gap-4">
-        <ThemeToggle />
-      </div>
-    </div>
-  </header>
-</Container>
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((section) => observer.observe(section));
+  });
+</script>

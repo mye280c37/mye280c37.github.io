@@ -1,0 +1,21 @@
+---
+import Container from "@/components/container.astro";
+import NewsTimeline from "@/components/NewsTimeline.astro";
+import Pagehead from "@/components/PageHead.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="News">
+  <Container>
+    <Pagehead>
+      <Fragment slot="title">📣 News</Fragment>
+      <Fragment slot="desc">
+        A record of my academic milestones, research highlights, and recent
+        updates.
+      </Fragment>
+    </Pagehead>
+    <main class="mt-16">
+      <NewsTimeline />
+    </main>
+  </Container>
+</Layout>
