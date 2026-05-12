@@ -1,6 +1,5 @@
 ---
 import Container from "@/components/container.astro";
-import ThemeToggle from "@/components/themetoggle.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
 const { pathname } = Astro.url;
@@ -58,24 +57,18 @@ const menuitems = [
           )
         }
       </Astronav>
-      <div>
-        <div class="hidden lg:flex items-center gap-4">
-          <ThemeToggle />
-        </div>
-      </div>
     </header>
   </Container>
 </div>
 
 <script>
-  // 실행 시점 보장을 위해 DOMContentLoaded 사용
   document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll(".nav-link");
-    const sections = document.querySelectorAll("section[id]"); // ID가 있는 section들만 감시
+    const sections = document.querySelectorAll("section[id]");
 
     const observerOptions = {
       root: null,
-      rootMargin: "-20% 0px -70% 0px", // 화면 중간쯤 왔을 때 인식하도록 범위 조절
+      rootMargin: "-20% 0px -70% 0px",
       threshold: 0,
     };
 
@@ -84,10 +77,8 @@ const menuitems = [
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute("id");
 
-          // 모든 링크에서 active 제거
           navLinks.forEach((link) => link.classList.remove("active"));
 
-          // 현재 섹션 ID와 href가 일치하는 링크에 active 추가
           const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
           if (activeLink) {
             activeLink.classList.add("active");

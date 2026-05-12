@@ -2,42 +2,26 @@
 
 @plugin '@tailwindcss/typography';
 
-/* Enable dark mode based on the .dark class on the <html> element */
-@variant dark (&:where(.dark, .dark *));
-
 @theme {
-  /* Brand colors */
-  --color-main: #14001e;
-  --color-muted: #5c4d66;
-  --color-accent: #d97706;
-
   /* Background colors */
-  --color-base: #f5f5f5;
+  --color-base: #1a0f1f;
+
+  /* Brand colors */
+  --color-main: #d6d1da;
+  --color-muted: #9a8da3;
+  --color-accent: #facc15;
 
   /* Button colors */
-  --color-btn-primary-bg: #0284c7;
-  --color-btn-primary-text: #f5f5f5;
-  --color-btn-secondary-border: #0284c7;
-  --color-btn-secondary: #0284c7;
+  --color-btn-primary-bg: #22d3ee;
+  --color-btn-primary-text: #14001e;
+  --color-btn-secondary-border: var(--color-btn-primary-bg);
+  --color-btn-secondary-text: var(--color-btn-primary-bg);
 
   /* Typography */
   --font-sans:
     Bricolage Grotesque Variable, Inter Variable, Inter, ui-sans-serif,
     system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-/* Dark mode overrides */
-.dark {
-  --color-brand: var(--color-brand-cool);
-  --color-base: #1a0f1f;
-  --color-main: #d6d1da;
-  --color-muted: #9a8da3;
-  --color-accent: #facc15;
-  --color-btn-primary-bg: #22d3ee;
-  --color-btn-primary-text: #14001e;
-  --color-btn-secondary-border: var(--color-btn-primary-bg);
-  --color-btn-secondary-text: var(--color-btn-primary-bg)
 }
 
 @layer base {
@@ -59,17 +43,6 @@
   }
 
   :root {
-    --card-bg: #F8F7FF;
-    --card-border: theme('colors.indigo.100');
-    --card-text-title: #2D243F;
-    --card-text-body: #4A3E5F;
-    --card-shadow: rgba(165, 180, 252, 0.2);
-    --tag-bg: rgba(99, 102, 241, 0.08);
-    --tag-border: rgba(99, 102, 241, 0.15);
-    --tag-text: #5558f1;
-  }
-
-  .dark {
     --card-bg: #1A1523;
     --card-border: rgba(255, 255, 255, 0.1);
     --card-text-title: #FFFFFF;
