@@ -61,8 +61,8 @@ const menuitems = [
   </Container>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
+<script is:inline>
+  function initScrollSpy() {
     const navLinks = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll("section[id]");
 
@@ -76,17 +76,26 @@ const menuitems = [
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute("id");
+          console.log("현재 보고 있는 섹션:", id);
 
-          navLinks.forEach((link) => link.classList.remove("active"));
-
-          const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
-          if (activeLink) {
-            activeLink.classList.add("active");
-          }
+          navLinks.forEach((link) => {
+            const href = link.getAttribute("href");
+            if (href === `#${id}` || href === `/#${id}`) {
+              link.classList.add("active");
+            } else {
+              link.classList.remove("active");
+            }
+          });
         }
       });
     }, observerOptions);
 
     sections.forEach((section) => observer.observe(section));
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    requestAnimationFrame(() => {
+      initScrollSpy();
+    });
   });
 </script>

@@ -62,74 +62,29 @@ const linkMap = [
 </div>
 
 <script>
-  const cards = document.querySelectorAll(".js-project-card");
+  const initProjectCards = () => {
+    const cards = document.querySelectorAll(".js-project-card");
 
-  cards.forEach((card) => {
-    card.addEventListener("click", (e) => {
-      if ((e.target as HTMLElement).closest("a")) return;
+    if (cards.length === 0) return;
 
-      if (window.innerWidth < 768) {
-        const isAlreadyExpanded = card.classList.contains("is-expanded");
-        console.log("clicked card", isAlreadyExpanded);
+    cards.forEach((card) => {
+      card.addEventListener("click", (e) => {
+        if ((e.target as HTMLElement).closest("a")) return;
 
-        cards.forEach((c) => c.classList.remove("is-expanded"));
+        if (window.innerWidth < 768) {
+          const isAlreadyExpanded = card.classList.contains("is-expanded");
 
-        if (!isAlreadyExpanded) {
-          card.classList.add("is-expanded");
+          cards.forEach((c) => c.classList.remove("is-expanded"));
+
+          if (!isAlreadyExpanded) {
+            card.classList.add("is-expanded");
+          }
         }
-
-        console.log("expanded card", card.classList.contains("is-expanded"));
-      }
+      });
     });
+  };
+
+  document.addEventListener("astro:page-load", () => {
+    requestAnimationFrame(initProjectCards);
   });
 </script>
-
-<!-- <div class="card-anchor group">
-  <div class="card-body !relative md:!absolute">
-    <div class="mb-4">
-      <span
-        class="px-3 py-1 rounded-full bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-widest">
-        {status}
-      </span>
-      <h3 class="card-title mt-3">{title}</h3>
-    </div>
-
-    <div class="mb-6">
-      <p class="font-semibold text-lg leading-snug">{summary}</p>
-      {
-        description && (
-          <div class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-[500px] group-hover:opacity-100 group-hover:mt-6">
-            <p class="text-base leading-relaxed border-l-2 border-accent/20 pl-4 opacity-80 italic">
-              {description}
-            </p>
-          </div>
-        )
-      }
-    </div>
-    <div class="mb-8">
-      <div
-        class="flex flex-row gap-1 transition-all duration-500 group-hover:flex-col group-hover:gap-3">
-        {
-          linkMap.map(
-            ({ key, label, icon }) =>
-              links[key] && (
-                <a
-                  href={links[key]}
-                  target="_blank"
-                  class="flex items-center gap-3 hover:text-accent transition-all duration-300 group/item">
-                  <Icon name={icon} class="w-6 h-6 shrink-0" />
-                  <span class="max-w-0 opacity-0 overflow-hidden whitespace-nowrap transition-all duration-500 font-bold text-sm group-hover:max-w-xs group-hover:opacity-100">
-                    {label}
-                  </span>
-                </a>
-              ),
-          )
-        }
-      </div>
-    </div>
-
-    <div class="mt-auto pt-6 border-t border-white/5 flex flex-wrap gap-2">
-      {tags.map((tag) => <span class="tag">#{tag}</span>)}
-    </div>
-  </div>
-</div> -->
