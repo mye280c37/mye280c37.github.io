@@ -2,7 +2,7 @@
 import Button from "@/components/ui/button.astro";
 import { getEntry } from "astro:content";
 
-interface Prpos {
+interface Props {
   count?: number;
 }
 
@@ -75,14 +75,14 @@ let lastYear = "";
       })
     }
   </div>
-  {
-    showButton && (
-      <div class="flex justify-end mt-12">
-        {" "}
-        <Button href="/news" style="primary">
-          See All News
-        </Button>
-      </div>
-    )
-  }
 </div>
+{
+  showButton && (
+    <div class="flex justify-end mt-12">
+      {" "}
+      <Button href="/news" style="outline" size="md">
+        See All News
+      </Button>
+    </div>
+  )
+}

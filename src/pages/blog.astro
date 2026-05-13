@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import PageHead from "@/components/PageHead.astro";
@@ -14,53 +13,62 @@ const publishedBlogEntries = await getCollection("blog", ({ data }) => {
 publishedBlogEntries.sort(function (a, b) {
   return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
 });
+
+const categories = [
+  "All",
+  ...new Set(publishedBlogEntries.map((post) => post.data.category)),
+];
 ---
 
 <Layout title="Blog">
   <Container>
     <PageHead>
-      <Fragment slot="title">Our Blog</Fragment>
+      <Fragment slot="title">🔮 Deep Dives</Fragment>
       <Fragment slot="desc">
-        We write about building startups and thoughts going on our mind.
+        Check out my latest research highlights and technical thoughts.
       </Fragment>
     </PageHead>
-    <main class="mt-16">
-      <ul class="grid gap-16 max-w-4xl mx-auto">
+
+    <main class="mt-12">
+      <div
+        class="flex flex-wrap justify-center gap-3 mb-16"
+        id="category-filters">
         {
-          publishedBlogEntries.map((blogPostEntry, index) => (
-            <li>
-              <a href={`/blog/${blogPostEntry.slug}`}>
-                <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
-                  <Picture
-                    src={blogPostEntry.data.image.src}
-                    alt={blogPostEntry.data.image.alt}
-                    sizes="(max-width: 800px) 100vw, 800px"
-                    width={800}
-                    height={600}
-                    loading={index <= 2 ? "eager" : "lazy"}
-                    decoding={index <= 2 ? "sync" : "async"}
-                    class="w-full rounded-md object-cover object-center bg-white"
-                  />
-                  <div>
-                    <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-                      {blogPostEntry.data.category}
-                    </span>
+          categories.map((category) => (
+            <button
+              data-filter={category}
+              class="px-4 py-1.5 rounded-full border border-white/30 text-sm font-medium transition-all hover:border-accent/40 hover:bg-accent/5 data-[active=true]:font-bold data-[active=true]:bg-accent data-[active=true]:text-btn-primary-text data-[active=true]:border-accent"
+              data-active={category === "All" ? "true" : "false"}>
+              {category}
+            </button>
+          ))
+        }
+      </div>
 
-                    <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
-                      {blogPostEntry.data.title}
-                    </h2>
-
-                    <div class="flex gap-2 mt-3">
-                      <span class="text-gray-400">
-                        {blogPostEntry.data.author}
-                      </span>
-                      <span class="text-gray-400">• </span>
-                      <time
-                        class="text-gray-400"
-                        datetime={blogPostEntry.data.publishDate.toISOString()}>
-                        {blogPostEntry.data.publishDate.toDateString()}
-                      </time>
-                    </div>
+      <ul class="max-w-4xl mx-auto" id="blog-list">
+        {
+          publishedBlogEntries.map((blogPostEntry) => (
+            <li
+              class="py-10 border-b border-white/10 first:pt-0 last:pb-0 last:border-0 blog-item"
+              data-category={blogPostEntry.data.category}>
+              <a href={`/blog/${blogPostEntry.slug}`} class="group">
+                <div>
+                  <span class="text-accent uppercase tracking-wider text-sm font-medium">
+                    {blogPostEntry.data.category}
+                  </span>
+                  <h2 class="text-2xl md:text-3xl font-semibold leading-snug tracking-tight mt-1 group-hover:underline group-hover:underline-offset-4 transition-all">
+                    {blogPostEntry.data.title}
+                  </h2>
+                  <p class="text-muted mt-2 text-lg md:text-xl">
+                    {blogPostEntry.data.snippet}
+                  </p>
+                  <div class="text-md flex gap-2 mt-3 text-gray-400">
+                    <span>{blogPostEntry.data.author}</span>
+                    <span>• </span>
+                    <time
+                      datetime={blogPostEntry.data.publishDate.toISOString()}>
+                      {blogPostEntry.data.publishDate.toDateString()}
+                    </time>
                   </div>
                 </div>
               </a>
@@ -71,3 +79,37 @@ publishedBlogEntries.sort(function (a, b) {
     </main>
   </Container>
 </Layout>
+
+<script>
+  function initFilters() {
+    const filterButtons = document.querySelectorAll("#category-filters button");
+    const blogItems = document.querySelectorAll(".blog-item");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const category = button.getAttribute("data-filter");
+
+        filterButtons.forEach((btn) =>
+          btn.setAttribute("data-active", "false"),
+        );
+        button.setAttribute("data-active", "true");
+
+        blogItems.forEach((item) => {
+          const itemCategory = item.getAttribute("data-category");
+
+          if (category === "All" || itemCategory === category) {
+            (item as HTMLElement).style.display = "block";
+            (item as HTMLElement).style.opacity = "1";
+          } else {
+            (item as HTMLElement).style.display = "none";
+            (item as HTMLElement).style.opacity = "0";
+          }
+        });
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    initFilters();
+  });
+</script>

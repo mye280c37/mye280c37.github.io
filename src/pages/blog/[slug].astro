@@ -19,12 +19,12 @@ const { Content } = await entry.render();
 
 <Layout title={entry.data.title}>
   <Container>
-    <div class="mx-auto max-w-3xl mt-14">
+    <div class="mx-auto max-w-3xl mt-14 mb-16">
       <span class="text-accent uppercase tracking-wider text-sm font-medium">
         {entry.data.category}
       </span>
       <h1
-        class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
+        class="text-3xl lg:text-4xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
         {entry.data.title}
       </h1>
       <div class="flex gap-2 mt-3 items-center flex-wrap md:flex-nowrap">
@@ -37,21 +37,23 @@ const { Content } = await entry.render();
           datetime={entry.data.publishDate.toISOString()}>
           {entry.data.publishDate.toDateString()}
         </time>
-        <span class="text-gray-400 hidden md:block">•</span>
-        <div class="w-full md:w-auto flex flex-wrap gap-3">
-          {
-            entry.data.tags.map((tag) => (
-              <span class="text-sm text-gray-500">#{tag}</span>
-            ))
-          }
-        </div>
+      </div>
+      <div class="text-muted w-full md:w-auto mt-4 text-lg md:text-xl">
+        {entry.data.snippet}
+      </div>
+      <div class="w-full md:w-auto mt-4 flex gap-2 items-center flex-wrap">
+        {
+          entry.data.tags.map((tag) => (
+            <span class="text-sm text-gray-500">#{tag}</span>
+          ))
+        }
       </div>
     </div>
 
-    <div class="mx-auto prose prose-lg mt-6 max-w-3xl">
+    <div class="mx-auto post-content prose prose-lg mt-6 max-w-3xl">
       <Content />
     </div>
-    <div class="text-center mt-8">
+    <div class="text-center mt-[150px] mb-16">
       <a href="/blog" class="btn-primary px-5 py-3 rounded-md">← Back to Blog</a
       >
     </div>

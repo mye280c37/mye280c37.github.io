@@ -7,6 +7,7 @@ import ProjectsGrid from "@/components/projects/ProjectsGrid.astro";
 import Section from "@/components/Section.astro";
 import Layout from "@/layouts/Layout.astro";
 import ResearchInterests from "@/components/ResearchInterests.astro";
+import RecentPosts from "@/components/RecentPosts.astro";
 ---
 
 <Layout title="">
@@ -14,17 +15,20 @@ import ResearchInterests from "@/components/ResearchInterests.astro";
     <section id="#">
       <Hero />
     </section>
-    <Section title="News" id="news">
-      <NewsTimeline count={5} />
-    </Section>
     <Section title="Research Interests" id="research-interests">
       <ResearchInterests />
+    </Section>
+    <Section title="News" id="news">
+      <NewsTimeline count={5} />
     </Section>
     <Section title="Publications" id="publications">
       <PublicationsList />
     </Section>
     <Section title="Projects" id="projects">
       <ProjectsGrid />
+    </Section>
+    <Section title="Deep Dives" id="deep-dives">
+      <RecentPosts count={3} />
     </Section>
   </Container>
 </Layout>
