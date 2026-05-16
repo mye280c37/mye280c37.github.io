@@ -1,5 +1,6 @@
 [
   {
+    "emoji": "📶",
     "title": "QoS-aware MAC-layer Resource Allocation for 5G/6G Networks",
     "items": [
       "Designing flow-level scheduling algorithms for QoS provisioning in B5G/6G systems",
@@ -8,6 +9,7 @@
     ]
   },
   {
+    "emoji": "🔗",
     "title": "Distributed Resource Allocation in Wireless Networks",
     "items": [
       "Addressing exposed and hidden terminal problems in dense wireless networks",
@@ -16,6 +18,7 @@
     ]
   },
   {
+    "emoji": "🎛️",
     "title": "Cross-layer Resource Management and System-level Orchestration",
     "items": [
       "Connecting lower-layer scheduling decisions with application- and service-level requirements",
@@ -24,6 +27,7 @@
     ]
   },
   {
+    "emoji": "🛟",
     "title": "Resilient Multi-RAT Connectivity for Edge and Mobility Services",
     "items": [
       "Studying service- and power-aware fallback across 5G, Wi-Fi/local connectivity, NTN, and low-power wireless technologies",
@@ -32,6 +36,7 @@
     ]
   },
   {
+    "emoji": "🛰️",
     "title": "Decentralized and Resilient Network Infrastructure",
     "items": [
       "Exploring how future communication systems can reduce dependency on centralized terrestrial infrastructure",

@@ -12,9 +12,12 @@ const interests = interestsEntry.data;
       <div class="accordion-card group">
         <details class="w-full">
           <summary class="flex justify-between items-center p-6 cursor-pointer list-none">
-            <h3 class="card-title text-xl md:text-2xl pr-4 leading-tight">
-              {interest.title}
-            </h3>
+            <div class="flex items-center">
+              <span class="text-3xl mr-4">{interest.emoji}</span>
+              <h3 class="card-title text-xl md:text-2xl pr-4 leading-tight">
+                {interest.title}
+              </h3>
+            </div>
             <div class="accordion-arrow transition-transform duration-300">
               <Icon name="bx:bx-chevron-down" class="w-8 h-8" />
             </div>

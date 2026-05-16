@@ -52,6 +52,7 @@ const interests = defineCollection({
   type: 'data',
   schema: z.array(
     z.object({
+      emoji: z.string(),
       title: z.string(),
       items: z.array(z.string()),
     })
