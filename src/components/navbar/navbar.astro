@@ -35,9 +35,13 @@ const menuitems = [
       <Astronav>
         <div class="flex w-full lg:w-auto items-center justify-between">
           <a href="/#" class="text-xl font-bold">mye280c37</a>
-          <div class="block lg:hidden">
-            <MenuIcon class="w-4 h-4 text-gray-800" />
-          </div>
+          {
+            isHome && (
+              <div class="block lg:hidden">
+                <MenuIcon class="w-4 h-4 text-muted" />
+              </div>
+            )
+          }
         </div>
         {
           isHome && (
