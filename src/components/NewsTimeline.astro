@@ -60,11 +60,11 @@ let lastYear = "";
               </div>
 
               <div class="flex-1 pl-8 group">
-                <h3 class="text-xl font-bold leading-tight">
+                <h3 class="text-xl md:text-2xl font-bold leading-tight">
                   {item.emoji} {item.title}
                 </h3>
                 {item.description && (
-                  <p class="text-muted text-base leading-relaxed opacity-90">
+                  <p class="text-lg md:text-xl text-muted text-base leading-relaxed opacity-90">
                     {item.description}
                   </p>
                 )}
@@ -80,7 +80,7 @@ let lastYear = "";
   showButton && (
     <div class="flex justify-end mt-12">
       {" "}
-      <Button href="/news" style="outline" size="md">
+      <Button href="/news" style="outline" size="md" class="rounded-full">
         See All News
       </Button>
     </div>
