@@ -58,4 +58,25 @@ const { Content } = await entry.render();
       >
     </div>
   </Container>
+
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const target = document.querySelector(".post-content");
+
+      if (target) {
+        target.addEventListener("copy", (e) => {
+          const selection = window.getSelection();
+          if (selection.toString().length < 10) return;
+
+          const copyright = `\n\n[Source: Copyright © ${window.location.hostname} by Hyerin Kim]\nOriginal Link: ${window.location.href}`;
+
+          e.clipboardData.setData(
+            "text/plain",
+            selection.toString() + copyright,
+          );
+          e.preventDefault();
+        });
+      }
+    });
+  </script>
 </Layout>
