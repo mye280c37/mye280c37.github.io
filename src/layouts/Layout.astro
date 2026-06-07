@@ -61,6 +61,29 @@ const { title } = Astro.props;
       href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
     />
 
+    <!-- Remove legacy service workers and cached assets from the previous site. -->
+    <script is:inline>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", async () => {
+          try {
+            const registrations =
+              await navigator.serviceWorker.getRegistrations();
+
+            await Promise.all(
+              registrations.map((registration) => registration.unregister()),
+            );
+
+            if ("caches" in window) {
+              const cacheNames = await caches.keys();
+              await Promise.all(cacheNames.map((name) => caches.delete(name)));
+            }
+          } catch (error) {
+            console.error("Failed to clean up service workers/caches:", error);
+          }
+        });
+      }
+    </script>
+
     <!-- Theme Script -->
     <!-- <script is:inline>
       const applyTheme = () => {
